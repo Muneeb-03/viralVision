@@ -97,14 +97,14 @@ export const WorksSection = () => {
     });
 
     return (
-      <Box sx={{mt: '50px', px: { xs: '15px', sm: '30px', md: '75px' },}}>
+      <Box sx={{ mt: "50px", px: { xs: "15px", sm: "30px", md: "75px" } }}>
         <Box
           display="flex"
-          justifyContent={{ xs: 'center', sm: 'center', md: 'space-between' }}
+          justifyContent={{ xs: "center", sm: "center", md: "space-between" }}
           alignItems="center"
           mb={3}
         >
-          <Box textAlign={{ xs: 'center', sm: 'center', md: 'left' }}>
+          <Box textAlign={{ xs: "center", sm: "center", md: "left" }}>
             <Typography
               variant="h4"
               component="h2"
@@ -140,16 +140,17 @@ export const WorksSection = () => {
                 fontWeight: 400,
                 lineHeight: "52.775px",
                 letterSpacing: "-0.211px",
+                opacity: 0.7,
               }}
             >
               We guarantee that you will be one of our happy customers as well
             </Typography>
           </Box>
-          <Box sx={{ display: { xs: 'none', sm: 'none', md: 'block' }}}>
+          <Box sx={{ display: { xs: "none", sm: "none", md: "block" } }}>
             <Button
-                variant="contained"
-                color="secondary"
-                sx={{
+              variant="contained"
+              color="secondary"
+              sx={{
                 display: "inline-flex",
                 height: "56px",
                 width: "198px",
@@ -168,9 +169,9 @@ export const WorksSection = () => {
                 fontWeight: 700,
                 lineHeight: "24.52px",
                 textAlign: "center",
-                }}
+              }}
             >
-                See More
+              See More
             </Button>
           </Box>
         </Box>
@@ -179,22 +180,40 @@ export const WorksSection = () => {
         {isMdUp ? (
           <Grid {...handlers} container spacing={3}>
             {worksData.map((work, index) => (
-              <Grid id={work.id} item xs={12} sm={12} md={6} key={index} sx={{ display: 'flex', justifyContent: index % 2 === 0 ? 'right' : 'left' }}>
+              <Grid
+                id={work.id}
+                item
+                xs={12}
+                sm={12}
+                md={6}
+                key={index}
+                sx={{
+                  display: "flex",
+                  justifyContent: index % 2 === 0 ? "right" : "left",
+                }}
+              >
                 <Box
                   sx={{
-                    width: '100%',
+                    width: "100%",
                     maxWidth: "638.534px",
                     flexShrink: 0,
                     borderRadius: "16.103px",
                     backgroundColor: "#FFF",
                     padding: "20px",
-                    boxShadow: "0px 0px 60px 0px rgba(0, 0, 0, 0.06)",
+                    boxShadow:" 0px 0px 60px 0px rgba(0, 0, 0, 0.06)",
                   }}
                 >
-                  <Box sx={{ position: 'relative' }}>
-                    <ReactPlayer 
-                      width="100%" 
-                      url="/SampleVideo.mp4" 
+                  <Box
+                    sx={{
+                      position: "relative",
+                      borderRadius: "14.871px",
+                      overflow: "hidden",
+                    }}
+                  >
+                    <ReactPlayer
+                      width="100%"
+                      height="100%"
+                      url="/SampleVideo.mp4"
                       playing={true}
                       muted={true}
                     />
@@ -306,17 +325,17 @@ export const WorksSection = () => {
                 <Grid item xs={12} key={index}>
                   <Box
                     sx={{
-                      width: '100%',
+                      width: "100%",
                       borderRadius: "16.103px",
                       backgroundColor: "#FFF",
                       padding: "20px",
                       boxShadow: "0px 0px 60px 0px rgba(0, 0, 0, 0.06)",
                     }}
                   >
-                    <Box sx={{ position: 'relative' }}>
-                      <ReactPlayer 
-                        width="100%" 
-                        url="/SampleVideo.mp4" 
+                    <Box sx={{ position: "relative" }}>
+                      <ReactPlayer
+                        width="100%"
+                        url="/SampleVideo.mp4"
                         playing={true}
                         muted={true}
                       />
@@ -421,7 +440,14 @@ export const WorksSection = () => {
                 </Grid>
               ))}
             </Grid>
-            <Box sx={{ display: 'flex', justifyContent: 'center', gap: '5px', mt: '15px' }}>
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                gap: "5px",
+                mt: "15px",
+              }}
+            >
               {Array.from({ length: pageCount }, (_, index) => (
                 <DotButton
                   key={index}

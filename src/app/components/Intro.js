@@ -12,7 +12,7 @@ const Badge = styled(Box)({
     height: '38px',
     alignItems: 'center',
     background: 'linear-gradient(90deg, rgba(138, 0, 255, 0.06) 0%, rgba(255, 0, 122, 0.06) 100%)',
-    padding: '4px 8px',
+    padding: '6px 8px',
     borderRadius: '19px',
     marginBottom: '16px',
     fontFamily: 'Inter',
@@ -24,10 +24,9 @@ const Badge = styled(Box)({
     '& span': {
       background: 'linear-gradient(90deg, #8A00FF 0%, #FF007A 100%)',
       color: '#fff',
-      padding: '4px 12px',
       borderRadius: '28.06px',
-      marginLeft: '8px',
-      padding: '7.5px',
+      marginLeft: '13px',
+      padding: '7px',
       fontSize: '12.28px',
       lineHeight: '14.87px',
     }
@@ -47,7 +46,7 @@ const LandingSection = () => {
         <Box sx={{ flex: 1, width: { xs: '100%', md: '50%' } }}>
           <Box sx={{ width: { xs: '100%', md: '90%' }}}>
             <Box sx={{display: 'flex', justifyContent: {xs: 'center', sm: 'center', md: 'left'},}}>
-                <Badge sx={{width: '231px' }}>
+                <Badge>
                     Get Videos Viral
                     <span>ViralVision</span>
                 </Badge>

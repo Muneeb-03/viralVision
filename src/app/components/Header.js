@@ -9,20 +9,20 @@ import ToggleHeader from '../../../public/ToggleHeader.svg';
 
 const pages = [
   { name: 'Home', link: '#' },
-  { name: 'About Us', link: '#about' },
-  { name: 'Features', link: '#features' },
-  { name: 'Services', link: '#services' },
+  { name: 'Works', link: '#works' },
+  { name: 'Approach', link: '#approach' },
   { name: 'Pricing', link: '#pricing' },
-  { name: 'Testimonials', link: '#testimonials' }
+  { name: 'Testimonials', link: '#testimonials' },
+  { name: 'Contact Us', link: '#contactus' },
 ];
 
 const settings = [
-  { name: 'Home', link: '#' },
-  { name: 'About Us', link: '#about' },
-  { name: 'Features', link: '#features' },
-  { name: 'Services', link: '#services' },
-  { name: 'Pricing', link: '#pricing' },
-  { name: 'Testimonials', link: '#testimonials' }
+  { name: "Home", link: "#" },
+  { name: "Works", link: "#works" },
+  { name: "Approach", link: "#approach" },
+  { name: "Pricing", link: "#pricing" },
+  { name: "Testimonials", link: "#testimonials" },
+  { name: "Contact Us", link: "#contactus" },
 ];
 
 function Header() {
