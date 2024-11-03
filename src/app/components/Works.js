@@ -5,7 +5,6 @@ import Image from "next/image"
 import SampleImg from '../../../public/SampleImg.svg';
 import HeartIcon from '../../../public/Heart.svg';
 import CommentIcon from '../../../public/Comment.svg';
-import PlayIcon from '../../../public/Play.svg';
 import ProfilePic from '../../../public/ProfilePic.svg';
 import { useState } from "react";
 import styled from "@emotion/styled";
