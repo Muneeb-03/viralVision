@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { 
   Box,
   Typography,
@@ -15,6 +15,7 @@ import { styled } from '@mui/material/styles';
 import ProfileOne from '../../../public/ProfileOne.svg';
 import ProfileTwo from '../../../public/ProfileTwo.svg';
 import Image from 'next/image';
+import { useSwipeable } from 'react-swipeable';
 
 const testimonials = [
   {
@@ -97,19 +98,25 @@ const TestimonialCarousel = () => {
   const isMdUp = useMediaQuery(theme.breakpoints.up('md')); 
 
   const itemsPerPage = isXs ? 1 : isSm ? 2 : 3;
-
   const [currentPage, setCurrentPage] = useState(0);
-
   const pageCount = Math.ceil(testimonials.length / itemsPerPage);
 
   const handlePageChange = (index) => {
     setCurrentPage(index);
   };
 
+
   const displayedTestimonials = testimonials.slice(
     currentPage * itemsPerPage,
     currentPage * itemsPerPage + itemsPerPage
   );
+
+  const handlers = useSwipeable({
+    onSwipedLeft: () => setCurrentPage((prevPage) => (prevPage + 1) % pageCount),
+    onSwipedRight: () => setCurrentPage((prevPage) => (prevPage - 1 + pageCount) % pageCount),
+    preventScrollOnSwipe: true,
+    trackMouse: true 
+  });
 
   return (
     <Box id="testimonials" sx={{ mt: '75px', minHeight: '650px', pb: '25px',  background: 'linear-gradient(90deg, rgba(138, 0, 255, 0.06) 0%, rgba(255, 0, 122, 0.06) 100%)', px: { xs: '15px', sm: '30px', md: '75px' },}}>
@@ -156,6 +163,7 @@ const TestimonialCarousel = () => {
       </Box>
 
       <Box
+       {...handlers}
         sx={{
           display: 'grid',
           gridTemplateColumns: {
@@ -196,7 +204,7 @@ const TestimonialCarousel = () => {
                     : index === 1
                     ? 'center'
                     : 'start'
-                  : 'center', // if not 3 items per row, center-align all
+                  : 'center', 
             }}
           >
             <Image

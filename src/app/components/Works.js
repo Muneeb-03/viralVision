@@ -10,6 +10,7 @@ import ProfilePic from '../../../public/ProfilePic.svg';
 import { useState } from "react";
 import styled from "@emotion/styled";
 import ReactPlayer from "react-player/lazy";
+import { useSwipeable } from "react-swipeable";
 
 const worksData = [
   {
@@ -87,6 +88,13 @@ export const WorksSection = () => {
         currentPage * itemsPerPage,
         currentPage * itemsPerPage + itemsPerPage
     );
+
+    const handlers = useSwipeable({
+      onSwipedLeft: () => setCurrentPage((prevPage) => (prevPage + 1) % pageCount),
+      onSwipedRight: () => setCurrentPage((prevPage) => (prevPage - 1 + pageCount) % pageCount),
+      preventScrollOnSwipe: true,
+      trackMouse: true 
+    });
 
     return (
       <Box sx={{mt: '50px', px: { xs: '15px', sm: '30px', md: '75px' },}}>
@@ -169,7 +177,7 @@ export const WorksSection = () => {
 
         {/* Conditional Posts Section */}
         {isMdUp ? (
-          <Grid container spacing={3}>
+          <Grid {...handlers} container spacing={3}>
             {worksData.map((work, index) => (
               <Grid id={work.id} item xs={12} sm={12} md={6} key={index} sx={{ display: 'flex', justifyContent: index % 2 === 0 ? 'right' : 'left' }}>
                 <Box
@@ -293,7 +301,7 @@ export const WorksSection = () => {
           </Grid>
         ) : (
           <>
-            <Grid container spacing={3}>
+            <Grid {...handlers} container spacing={3}>
               {displayedWorks.map((work, index) => (
                 <Grid item xs={12} key={index}>
                   <Box

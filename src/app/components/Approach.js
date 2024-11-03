@@ -7,6 +7,7 @@ import Strategic from '../../../public/Strategic.svg';
 import Image from "next/image";
 import { useState } from "react";
 import styled from "@emotion/styled";
+import { useSwipeable } from "react-swipeable";
 
 const approachesData = [
   {
@@ -64,6 +65,13 @@ export const ApproachSection = () => {
         currentPage * itemsPerPage + itemsPerPage
     );
 
+    const handlers = useSwipeable({
+      onSwipedLeft: () => setCurrentPage((prevPage) => (prevPage + 1) % pageCount),
+      onSwipedRight: () => setCurrentPage((prevPage) => (prevPage - 1 + pageCount) % pageCount),
+      preventScrollOnSwipe: true,
+      trackMouse: true 
+    });
+
   return (
     <Box id="services" sx={{mt: '75px', width: '100%', px: { xs: '15px', sm: '30px', md: '75px' }}}>
       <Box sx={{textAlign: 'center'}}>
@@ -110,6 +118,7 @@ export const ApproachSection = () => {
       </Box>
 
       <Box
+        {...handlers}
         sx={{
             mt: '30px',
             width: '100%',

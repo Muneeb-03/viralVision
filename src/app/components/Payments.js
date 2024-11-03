@@ -8,6 +8,7 @@ import { Box, Grid, IconButton, Typography, useMediaQuery, useTheme } from '@mui
 import Image from 'next/image';
 import { useState } from 'react';
 import styled from '@emotion/styled';
+import { useSwipeable } from 'react-swipeable';
 
 const pricingPlans = [
   {
@@ -115,6 +116,13 @@ export const PaymentSection = () => {
         currentPage * itemsPerPage + itemsPerPage
     );
 
+    const handlers = useSwipeable({
+      onSwipedLeft: () => setCurrentPage((prevPage) => (prevPage + 1) % pageCount),
+      onSwipedRight: () => setCurrentPage((prevPage) => (prevPage - 1 + pageCount) % pageCount),
+      preventScrollOnSwipe: true,
+      trackMouse: true 
+    });
+
     return (
         <Box id="pricing" sx={{ textAlign: 'center', mt: '75px', px: { xs: '15px', sm: '30px', md: '75px' },}}>
         <Typography
@@ -160,6 +168,7 @@ export const PaymentSection = () => {
         </Typography>
 
         <Box
+            {...handlers}
             sx={{
                 display: 'flex', 
                 flexDirection: {
