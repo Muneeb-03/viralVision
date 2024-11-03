@@ -97,7 +97,10 @@ export const WorksSection = () => {
     });
 
     return (
-      <Box id="works" sx={{ mt: "50px", px: { xs: "15px", sm: "30px", md: "75px" } }}>
+      <Box
+        id="works"
+        sx={{ mt: "50px", px: { xs: "15px", sm: "30px", md: "75px" } }}
+      >
         <Box
           display="flex"
           justifyContent={{ xs: "center", sm: "center", md: "space-between" }}
@@ -200,7 +203,7 @@ export const WorksSection = () => {
                     borderRadius: "16.103px",
                     backgroundColor: "#FFF",
                     padding: "20px",
-                    boxShadow:" 0px 0px 60px 0px rgba(0, 0, 0, 0.06)",
+                    boxShadow: " 0px 0px 60px 0px rgba(0, 0, 0, 0.06)",
                   }}
                 >
                   <Box
@@ -243,10 +246,23 @@ export const WorksSection = () => {
                       sx={{
                         color: "#000",
                         fontFamily: "Inter",
+                        fontSize: {
+                          xs: "16.23px",
+                          sm: "16.23px",
+                          md: "23.147px",
+                        },
                         fontSize: "23.147px",
                         fontWeight: 400,
-                        lineHeight: "32.05px",
-                        letterSpacing: "-0.125px",
+                        lineHeight: {
+                          xs: "22.473px",
+                          sm: "22.473px",
+                          md: "32.05px",
+                        },
+                        letterSpacing: {
+                          xs: "-0.087px",
+                          sm: "-0.087px",
+                          md: "-0.125px",
+                        },
                       }}
                     >
                       {work.likes}
@@ -256,10 +272,23 @@ export const WorksSection = () => {
                       sx={{
                         color: "#000",
                         fontFamily: "Inter",
+                        fontSize: {
+                          xs: "16.23px",
+                          sm: "16.23px",
+                          md: "23.147px",
+                        },
                         fontSize: "23.147px",
                         fontWeight: 400,
-                        lineHeight: "32.05px",
-                        letterSpacing: "-0.125px",
+                        lineHeight: {
+                          xs: "22.473px",
+                          sm: "22.473px",
+                          md: "32.05px",
+                        },
+                        letterSpacing: {
+                          xs: "-0.087px",
+                          sm: "-0.087px",
+                          md: "-0.125px",
+                        },
                       }}
                     >
                       {work.comments}
@@ -279,9 +308,17 @@ export const WorksSection = () => {
                       sx={{
                         color: "#000",
                         fontFamily: "Inter",
-                        fontSize: "23.147px",
+                        fontSize: {
+                          xs: "15.878px",
+                          sm: "15.878px",
+                          md: "23.147px",
+                        },
                         fontWeight: 400,
-                        lineHeight: "32.05px",
+                        lineHeight: {
+                          xs: "21.985px",
+                          sm: "21.985px",
+                          md: "32.05px",
+                        },
                         letterSpacing: "-0.125px",
                       }}
                     >
@@ -291,12 +328,26 @@ export const WorksSection = () => {
                   <Box sx={{ marginTop: "15px" }}>
                     <Typography
                       sx={{
-                        color: "#000",
+                        color: "#262626",
                         fontFamily: "Inter",
-                        fontSize: "23.147px",
+                        fontSize: {
+                          xs: "15.87px",
+                          sm: "15.87px",
+                          md: "23.147px",
+                        },
+                        fontStyle: "normal",
                         fontWeight: 400,
-                        lineHeight: "32.05px",
+                        lineHeight: {
+                          xs: "21.985px",
+                          sm: "21.985px",
+                          md: "32.05px",
+                        },
                         letterSpacing: "-0.125px",
+                        marginBottom: {
+                          xs: "16.27px",
+                          sm: "16.27px",
+                          md: "22.16px",
+                        },
                       }}
                     >
                       {work.description}
@@ -304,12 +355,17 @@ export const WorksSection = () => {
                   </Box>
                   <Typography
                     sx={{
-                      color: "#B1B1B1",
+                      color: "rgba(0, 0, 0, 0.40)",
                       fontFamily: "Inter",
-                      fontSize: "20px",
+                      fontSize: {
+                        xs: "13.435px",
+                        sm: "13.435px",
+                        md: "19.58px",
+                      },
+                      fontStyle: "normal",
                       fontWeight: 400,
-                      lineHeight: "32.05px",
-                      letterSpacing: "-0.125px",
+                      lineHeight: "normal",
+                      letterSpacing: "0.089px",
                     }}
                   >
                     {work.date}
@@ -365,10 +421,23 @@ export const WorksSection = () => {
                         sx={{
                           color: "#000",
                           fontFamily: "Inter",
+                          fontSize: {
+                            xs: "16.23px",
+                            sm: "16.23px",
+                            md: "23.147px",
+                          },
                           fontSize: "23.147px",
                           fontWeight: 400,
-                          lineHeight: "32.05px",
-                          letterSpacing: "-0.125px",
+                          lineHeight: {
+                            xs: "22.473px",
+                            sm: "22.473px",
+                            md: "32.05px",
+                          },
+                          letterSpacing: {
+                            xs: "-0.087px",
+                            sm: "-0.087px",
+                            md: "-0.125px",
+                          },
                         }}
                       >
                         {work.likes}
@@ -378,10 +447,23 @@ export const WorksSection = () => {
                         sx={{
                           color: "#000",
                           fontFamily: "Inter",
+                          fontSize: {
+                            xs: "16.23px",
+                            sm: "16.23px",
+                            md: "23.147px",
+                          },
                           fontSize: "23.147px",
                           fontWeight: 400,
-                          lineHeight: "32.05px",
-                          letterSpacing: "-0.125px",
+                          lineHeight: {
+                            xs: "22.473px",
+                            sm: "22.473px",
+                            md: "32.05px",
+                          },
+                          letterSpacing: {
+                            xs: "-0.087px",
+                            sm: "-0.087px",
+                            md: "-0.125px",
+                          },
                         }}
                       >
                         {work.comments}
@@ -401,9 +483,17 @@ export const WorksSection = () => {
                         sx={{
                           color: "#000",
                           fontFamily: "Inter",
-                          fontSize: "23.147px",
+                          fontSize: {
+                            xs: "15.878px",
+                            sm: "15.878px",
+                            md: "23.147px",
+                          },
                           fontWeight: 400,
-                          lineHeight: "32.05px",
+                          lineHeight: {
+                            xs: "21.985px",
+                            sm: "21.985px",
+                            md: "32.05px",
+                          },
                           letterSpacing: "-0.125px",
                         }}
                       >
@@ -413,12 +503,26 @@ export const WorksSection = () => {
                     <Box sx={{ marginTop: "15px" }}>
                       <Typography
                         sx={{
-                          color: "#000",
+                          color: "#262626",
                           fontFamily: "Inter",
-                          fontSize: "23.147px",
+                          fontSize: {
+                            xs: "15.87px",
+                            sm: "15.87px",
+                            md: "23.147px",
+                          },
+                          fontStyle: "normal",
                           fontWeight: 400,
-                          lineHeight: "32.05px",
+                          lineHeight: {
+                            xs: "21.985px",
+                            sm: "21.985px",
+                            md: "32.05px",
+                          },
                           letterSpacing: "-0.125px",
+                          marginBottom: {
+                            xs: "16.27px",
+                            sm: "16.27px",
+                            md: "22.16px",
+                          },
                         }}
                       >
                         {work.description}
@@ -426,12 +530,17 @@ export const WorksSection = () => {
                     </Box>
                     <Typography
                       sx={{
-                        color: "#B1B1B1",
+                        color: "rgba(0, 0, 0, 0.40)",
                         fontFamily: "Inter",
-                        fontSize: "20px",
+                        fontSize: {
+                          xs: "13.435px",
+                          sm: "13.435px",
+                          md: "19.58px",
+                        },
+                        fontStyle: "normal",
                         fontWeight: 400,
-                        lineHeight: "32.05px",
-                        letterSpacing: "-0.125px",
+                        lineHeight: "normal",
+                        letterSpacing: "0.089px",
                       }}
                     >
                       {work.date}

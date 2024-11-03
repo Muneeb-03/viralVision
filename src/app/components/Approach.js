@@ -122,7 +122,6 @@ export const ApproachSection = () => {
         sx={{
             mt: '30px',
             width: '100%',
-            px: { xs: "0", lg: "60px" },
             display: 'flex',
             flexDirection: { xs: 'column', sm: 'row' },
             justifyContent: { xs: 'center', sm: 'center', md: 'flex-start' },
