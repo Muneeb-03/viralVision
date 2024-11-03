@@ -73,7 +73,7 @@ export const ApproachSection = () => {
     });
 
   return (
-    <Box id="services" sx={{mt: '75px', width: '100%', px: { xs: '15px', sm: '30px', md: '75px' }}}>
+    <Box id="approach" sx={{mt: '75px', width: '100%', px: { xs: '15px', sm: '30px', md: '75px' }}}>
       <Box sx={{textAlign: 'center'}}>
         <Typography
           variant="h4"

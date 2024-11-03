@@ -97,7 +97,7 @@ export const WorksSection = () => {
     });
 
     return (
-      <Box sx={{ mt: "50px", px: { xs: "15px", sm: "30px", md: "75px" } }}>
+      <Box id="works" sx={{ mt: "50px", px: { xs: "15px", sm: "30px", md: "75px" } }}>
         <Box
           display="flex"
           justifyContent={{ xs: "center", sm: "center", md: "space-between" }}

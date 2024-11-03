@@ -44,7 +44,7 @@ export const ContactSection = () => {
   };
 
   return (
-    <Box sx={{ mt: '75px', width: '100%', px: { xs: '10px', sm: '30px', md: '75px' },}}>
+    <Box id="contactus" sx={{ mt: '75px', width: '100%', px: { xs: '10px', sm: '30px', md: '75px' },}}>
       <Box sx={{ textAlign: 'center' }}>
         <Typography
           variant="h4"
