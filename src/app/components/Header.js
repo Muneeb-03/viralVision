@@ -7,8 +7,23 @@ import Logo from '../../../public/Logo.svg';
 import TryButton from '../../../public/TryButton.svg';
 import ToggleHeader from '../../../public/ToggleHeader.svg';
 
-const pages = ['Home', 'About Us', 'Features', 'Services', 'Pricing', 'Testimonials'];
-const settings = ['Home', 'About Us', 'Features', 'Services', 'Pricing', 'Testimonials'];
+const pages = [
+  { name: 'Home', link: '#' },
+  { name: 'About Us', link: '#about' },
+  { name: 'Features', link: '#features' },
+  { name: 'Services', link: '#services' },
+  { name: 'Pricing', link: '#pricing' },
+  { name: 'Testimonials', link: '#testimonials' }
+];
+
+const settings = [
+  { name: 'Home', link: '#' },
+  { name: 'About Us', link: '#about' },
+  { name: 'Features', link: '#features' },
+  { name: 'Services', link: '#services' },
+  { name: 'Pricing', link: '#pricing' },
+  { name: 'Testimonials', link: '#testimonials' }
+];
 
 function Header() {
   const [anchorElUser, setAnchorElUser] = useState(null);
@@ -22,7 +37,7 @@ function Header() {
   };
 
   return (
-    <AppBar position="static" sx={{ backgroundColor: 'white', border: 'none', boxShadow: 'none', px: '75px' }}>
+    <AppBar position="static" sx={{ backgroundColor: 'white', border: 'none', boxShadow: 'none', px: { xs: '15px', sm: '30px', md: '75px' }, }}>
       <Toolbar disableGutters sx={{ justifyContent: 'space-between', width: '100%' }}>
         
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
@@ -30,9 +45,9 @@ function Header() {
         </Box>
 
         <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, justifyContent: 'right', mr: '50px' }}>
-          {pages.map((page) => (
+          {pages.map(({ name, link }) => (
             <Button
-              key={page}
+              key={name}
               onClick={handleCloseUserMenu}
               sx={{
                 my: 2,
@@ -44,8 +59,9 @@ function Header() {
                 textAlign: 'left',
                 textTransform: 'capitalize'
               }}
+              href={link} 
             >
-              {page}
+              {name}
             </Button>
           ))}
         </Box>
@@ -74,9 +90,11 @@ function Header() {
             open={Boolean(anchorElUser)}
             onClose={handleCloseUserMenu}
           >
-            {settings.map((setting) => (
-              <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                <Typography sx={{ textAlign: 'center' }}>{setting}</Typography>
+            {settings.map(({ name, link }) => (
+              <MenuItem key={name} onClick={handleCloseUserMenu}>
+                <Typography sx={{ textAlign: 'center' }}>
+                  <a href={link} style={{ textDecoration: 'none', color: 'inherit' }}>{name}</a>
+                </Typography>
               </MenuItem>
             ))}
           </Menu>

@@ -4,8 +4,10 @@ import Tick from '../../../public/Tick.svg';
 import Cross from '../../../public/Cross.svg';
 import Inquire from '../../../public/Inquire.svg';
 import InquireFilled from '../../../public/InquireFilled.svg';
-import { Box, Grid, Typography } from '@mui/material';
+import { Box, Grid, IconButton, Typography, useMediaQuery, useTheme } from '@mui/material';
 import Image from 'next/image';
+import { useState } from 'react';
+import styled from '@emotion/styled';
 
 const pricingPlans = [
   {
@@ -75,14 +77,51 @@ const FeatureIcon = ({ feature, planColor }) => {
   );
 };
 
+const DotButton = styled(IconButton)(({ theme, active }) => ({
+    width: active ? '14.9px' : '9.17px',
+    height: '9.17px',
+    padding: 0,
+    background: active
+      ? 'linear-gradient(90deg, #8A00FF 0%, #FF007A 100%)'
+      : 'linear-gradient(90deg, #8A00FF 0%, #FF007A 100%)',
+    opacity: active ? 1 : 0.3,
+    borderRadius: '18.34px',
+    transition: 'all 0.3s ease',
+    '&:hover': {
+      background: active
+        ? 'linear-gradient(90deg, #8A00FF 0%, #FF007A 100%)'
+        : 'linear-gradient(90deg, #8A00FF 0%, #FF007A 100%)', 
+    },
+}));
+
 export const PaymentSection = () => {
+    const theme = useTheme();
+    const isXs = useMediaQuery(theme.breakpoints.down('sm')); 
+    const isSm = useMediaQuery(theme.breakpoints.between('sm', 'md')); 
+    const isMdUp = useMediaQuery(theme.breakpoints.up('md')); 
+
+    const itemsPerPage = isXs ? 1 : isSm ? 1 : 3;
+
+    const [currentPage, setCurrentPage] = useState(0);
+
+    const pageCount = Math.ceil(pricingPlans.length / itemsPerPage);
+
+    const handlePageChange = (index) => {
+        setCurrentPage(index);
+    };
+
+    const displayedPlans = pricingPlans.slice(
+        currentPage * itemsPerPage,
+        currentPage * itemsPerPage + itemsPerPage
+    );
+
     return (
-        <Box sx={{ textAlign: 'center', mt: '75px', px: '75px' }}>
+        <Box id="pricing" sx={{ textAlign: 'center', mt: '75px', px: { xs: '15px', sm: '30px', md: '75px' },}}>
         <Typography
             variant="h4"
             component="h2"
             sx={{
-              // fontFamily: "Cal Sans",
+              fontFamily: "Cal Sans",
               fontSize: "56px",
               fontWeight: 600,
               lineHeight: "68.39px",
@@ -98,7 +137,7 @@ export const PaymentSection = () => {
                   "linear-gradient(102deg, #FF6F91 3.29%, #8B4CFC 100%)",
                 WebkitBackgroundClip: "text",
                 WebkitTextFillColor: "transparent",
-                // fontFamily: "Cal Sans",
+                fontFamily: "Cal Sans",
               }}
             >
               Pricing
@@ -119,11 +158,26 @@ export const PaymentSection = () => {
             }}>
           Choose Flexible Pricing Tailored To Your Needs, With No Hidden Fees—Just Impactful, Results-Driven Videos!
         </Typography>
-        
-        <Grid container spacing={4} justifyContent="center">
-          {pricingPlans.map((plan) => (
-            <Grid item xs={12} sm={6} md={4} key={plan.title} sx={{ display: 'flex', justifyContent: plan.justify }}>
+
+        <Box
+            sx={{
+                display: 'flex', 
+                flexDirection: {
+                  xs: 'column',
+                  sm: 'row',   
+                },
+                justifyContent: {
+                  xs: 'center',
+                  sm: 'center',
+                  md: 'flex-start', 
+                },
+                gap: 3,
+                mb: 4,
+            }}
+        >
+            {displayedPlans.map((plan, index) => (
               <Box
+                key={plan.title}
                 sx={{
                   background: plan.backgroundColor,
                   borderRadius: '24px',
@@ -139,6 +193,7 @@ export const PaymentSection = () => {
               >
                 <Typography
                   sx={{
+                    fontFamily: 'Poppins',
                     fontSize: '23.19px',
                     fontWeight: 700,
                     lineHeight: '34.78px',
@@ -149,6 +204,7 @@ export const PaymentSection = () => {
                 
                 <Typography
                   sx={{
+                    fontFamily: 'Poppins',
                     fontSize: '16.86px',
                     fontWeight: 400,
                     lineHeight: '25.3px',
@@ -159,6 +215,7 @@ export const PaymentSection = () => {
                 
                 <Typography
                   sx={{
+                    fontFamily: 'Poppins',
                     fontSize: '59.03px',
                     fontWeight: 600,
                     lineHeight: '88.54px',
@@ -189,16 +246,25 @@ export const PaymentSection = () => {
                       }}
                     >
                       <FeatureIcon feature={feature} planColor={plan.actionColor} />
-                      <Typography>
+                      <Typography sx={{fontFamily: 'Poppins',}}>
                         {feature.replace('No ', '')}
                       </Typography>
                     </Box>
                   ))}
                 </Box>
               </Box>
-            </Grid>
-          ))}
-        </Grid>
+            ))}
+        </Box>
+
+        {!isMdUp && <Box sx={{ display: 'flex', justifyContent: 'center', gap: '5px' }}>
+            {Array.from({ length: pageCount }, (_, index) => (
+            <DotButton
+                key={index}
+                active={index === currentPage}
+                onClick={() => handlePageChange(index)}
+            />
+            ))}
+        </Box>}
       </Box>
     )
 }

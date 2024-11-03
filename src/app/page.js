@@ -15,6 +15,9 @@ import LandingSection from "./components/Intro";
 import { PaymentSection } from "./components/Payments";
 import { WorksSection } from "./components/Works";
 import { ApproachSection } from "./components/Approach";
+import { ContactSection } from "./components/ContactUs";
+import Banner from '../../public/Banner.svg'
+import Footer from "./components/Footer";
 
 
 export default function Home() {
@@ -23,10 +26,10 @@ export default function Home() {
   const isMd = useMediaQuery(theme.breakpoints.up('md')); 
 
   return (
-    <Box sx={{ padding: "20px 0px"}}>
+    <Box sx={{ maxWidth: '1440px', margin: '0 auto', padding: "20px 0px 0px 0px" }}>
       {visible && isMd && <Box 
         sx={{ 
-          px: '75px', 
+          px: { xs: '15px', sm: '30px', md: '75px' }, 
           mb: '30px'
         }}
       >
@@ -49,6 +52,14 @@ export default function Home() {
       <PaymentSection />
 
       <TestimonialCarousel />
+
+      <ContactSection />
+
+      <Box sx={{mt: '50px', display: 'flex', justifyContent: 'center', px: { xs: '15px', sm: '30px', md: '75px' }, width: '100%' }}>
+        <Image src={Banner} style={{width: '100%', height: '100%'}} />
+      </Box>
+
+      <Footer />
 
     </Box>
   );

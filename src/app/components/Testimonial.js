@@ -112,12 +112,13 @@ const TestimonialCarousel = () => {
   );
 
   return (
-    <Box sx={{ mt: '75px', minHeight: '650px', background: 'linear-gradient(90deg, rgba(138, 0, 255, 0.06) 0%, rgba(255, 0, 122, 0.06) 100%)', px: '75px'}}>
+    <Box id="testimonials" sx={{ mt: '75px', minHeight: '650px', pb: '25px',  background: 'linear-gradient(90deg, rgba(138, 0, 255, 0.06) 0%, rgba(255, 0, 122, 0.06) 100%)', px: { xs: '15px', sm: '30px', md: '75px' },}}>
       <Box sx={{ textAlign: 'center', mb: 6, pt: '50px' }}>
         <Typography
             variant="h4"
             component="h2"
             sx={{
+              fontFamily: 'Cal Sans',
               fontSize: "44px",
               fontWeight: 600,
               lineHeight: "68.39px",
