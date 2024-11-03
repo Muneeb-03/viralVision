@@ -1,13 +1,15 @@
 "use client";
 
-import { Box, Button, Grid, TextField, Typography } from "@mui/material";
-import { useRef } from "react";
+import { Box, Button, Grid, IconButton, TextField, Typography, useMediaQuery, useTheme } from "@mui/material";
+import { useEffect, useRef, useState } from "react";
 import Address from '../../../public/Address.svg';
 import Phone from '../../../public/Phone.svg';
 import Mail from '../../../public/Mail.svg';
 import Image from "next/image";
 import emailjs from 'emailjs-com';
 import { Map } from './Map';
+import { useSwipeable } from "react-swipeable";
+import styled from "@emotion/styled";
 
 const contactDetails = [
   {
@@ -24,24 +26,72 @@ const contactDetails = [
   },
 ];
 
-export const ContactSection = () => {
-  const form = useRef();
+const DotButton = styled(IconButton)(({ theme, active }) => ({
+  width: active ? '14.9px' : '9.17px',
+  height: '9.17px',
+  padding: 0,
+  background: active
+    ? 'linear-gradient(90deg, #8A00FF 0%, #FF007A 100%)'
+    : 'linear-gradient(90deg, #8A00FF 0%, #FF007A 100%)',
+  opacity: active ? 1 : 0.3,
+  borderRadius: '18.34px',
+  transition: 'all 0.3s ease',
+  '&:hover': {
+    background: active
+      ? 'linear-gradient(90deg, #8A00FF 0%, #FF007A 100%)'
+      : 'linear-gradient(90deg, #8A00FF 0%, #FF007A 100%)', 
+  },
+}));
 
-  const sendEmail = (e) => {
-    e.preventDefault();
-    emailjs.sendForm(
-      process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID,
-      process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID,
-      form.current,
-      process.env.NEXT_PUBLIC_EMAILJS_USER_ID
-    )
-      .then((result) => {
-        console.log('Email sent successfully:', result.text);
-        e.target.reset();
-      }, (error) => {
-        console.error('Email sending failed:', error.text);
-      });
-  };
+export const ContactSection = () => {
+    const theme = useTheme();
+    const isXs = useMediaQuery(theme.breakpoints.down('sm')); 
+    const isSm = useMediaQuery(theme.breakpoints.between('sm', 'md')); 
+    const isMdUp = useMediaQuery(theme.breakpoints.up('md')); 
+
+    const itemsPerPage = isXs || isSm ? 1 : 3;
+
+    const [currentPage, setCurrentPage] = useState(isXs || isSm ? 1 : 0);
+
+    const pageCount = Math.ceil(contactDetails.length / itemsPerPage);
+
+    useEffect(() => {
+        setCurrentPage(isXs || isSm ? 1 : 0);
+    }, [isXs, isSm]);
+
+    const handlePageChange = (index) => {
+        setCurrentPage(index);
+    };
+
+    const displayedDetails = contactDetails.slice(
+        currentPage * itemsPerPage,
+        currentPage * itemsPerPage + itemsPerPage
+    );
+
+    const handlers = useSwipeable({
+      onSwipedLeft: () => setCurrentPage((prevPage) => (prevPage + 1) % pageCount),
+      onSwipedRight: () => setCurrentPage((prevPage) => (prevPage - 1 + pageCount) % pageCount),
+      preventScrollOnSwipe: true,
+      trackMouse: true 
+    });
+
+    const form = useRef();
+
+    const sendEmail = (e) => {
+      e.preventDefault();
+      emailjs.sendForm(
+        process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID,
+        process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID,
+        form.current,
+        process.env.NEXT_PUBLIC_EMAILJS_USER_ID
+      )
+        .then((result) => {
+          console.log('Email sent successfully:', result.text);
+          e.target.reset();
+        }, (error) => {
+          console.error('Email sending failed:', error.text);
+        });
+    };
 
   return (
     <Box id="contactus" sx={{ mt: '75px', width: '100%', px: { xs: '10px', sm: '30px', md: '75px' },}}>
@@ -85,15 +135,33 @@ export const ContactSection = () => {
         </Typography>
       </Box>
 
-      <Box sx={{ mt: '30px' }}>
-        <Grid container spacing={3}>
-          {contactDetails.map((detail, index) => (
-            <Grid item xs={12} sm={6} md={4} key={index}>
+      <Box
+        {...handlers}
+        sx={{
+            display: 'flex', 
+            flexDirection: {
+              xs: 'column',
+              sm: 'row',   
+            },
+            justifyContent: {
+              xs: 'center',
+              sm: 'center',
+              md: 'flex-start', 
+            },
+            gap: 3,
+            mb: 4,
+            width: '100%',
+        }}
+        >
+          {displayedDetails.map((detail, index) => (
+            <Grid item xs={12} sm={6} md={4} key={index} sx={{ flex: '1' }}>
               <Box
                 sx={{
                   flexShrink: 0,
                   height: '230px',
+                  // minWidth: '350px',
                   width: '100%',
+                  // maxWidth: '415px',
                   maxWidth: '416px',
                   borderRadius: "16.103px",
                   backgroundColor: "#FFF",
@@ -125,8 +193,17 @@ export const ContactSection = () => {
               </Box>
             </Grid>
           ))}
-        </Grid>
       </Box>
+
+      {!isMdUp && <Box sx={{ display: 'flex', justifyContent: 'center', gap: '5px' }}>
+        {Array.from({ length: pageCount }, (_, index) => (
+        <DotButton
+            key={index}
+            active={index === currentPage}
+            onClick={() => handlePageChange(index)}
+        />
+        ))}
+      </Box>}
 
       <Box sx={{mt: '75px'}}>
         <Grid container spacing={4}>
@@ -136,38 +213,40 @@ export const ContactSection = () => {
             <Grid item xs={12} md={6}>
               <Box sx={{p: '25px', boxShadow: "0px 0px 60px 0px rgba(0, 0, 0, 0.06)", height: '470px'}}>
                 <form ref={form} onSubmit={sendEmail} style={{ display: "flex", flexDirection: "column", gap: "15px" }}>
-                    <TextField
-                    label="Enter your name"
-                    name="user_name"
-                    required
-                    fullWidth
-                    sx={{
-                        height: '55px',
-                        borderRadius: '5px',
-                        border: '1px solid #E8E8E8',
-                        '& .MuiOutlinedInput-root': {
-                        '& fieldset': {
-                            border: 'none',
-                        },
-                        '&:hover fieldset': {
-                            border: 'none',
-                        },
-                        '&.Mui-focused fieldset': {
-                            border: 'none',
-                        },
-                        },
-                    }}
-                    InputLabelProps={{
-                        sx: {
-                        color: '#000B33', 
-                        fontFamily: 'Inter', 
-                        fontSize: '14px', 
-                        fontWeight: 400, 
-                        lineHeight: '21px',
-                        textAlign: 'left', 
-                        },
-                    }}
-                    />
+                <TextField
+                  label="Enter your name"
+                  name="user_name"
+                  required
+                  fullWidth
+                  sx={{
+                    height: '55px',
+                    borderRadius: '5px',
+                    border: '1px solid #E8E8E8',
+                    '& .MuiOutlinedInput-root': {
+                      '& fieldset': {
+                        border: 'none',
+                      },
+                      '&:hover fieldset': {
+                        border: 'none',
+                      },
+                      '&.Mui-focused fieldset': {
+                        border: 'none',
+                      },
+                    },
+                  }}
+                  InputLabelProps={{
+                    sx: {
+                      color: '#000B33', 
+                      fontFamily: 'Inter', 
+                      fontSize: '14px', 
+                      fontWeight: 400, 
+                      lineHeight: '21px',
+                      textAlign: 'left',
+                      backgroundColor: 'white',
+                      paddingRight: '4px', 
+                    },
+                  }}
+                />
                     <TextField
                     label="Enter your email address"
                     name="user_email"
@@ -198,6 +277,8 @@ export const ContactSection = () => {
                         fontWeight: 400, 
                         lineHeight: '21px', 
                         textAlign: 'left',
+                        backgroundColor: 'white',
+                        paddingRight: '4px', 
                         },
                     }}
                     />
@@ -232,6 +313,8 @@ export const ContactSection = () => {
                         fontWeight: 400, 
                         lineHeight: '21px', 
                         textAlign: 'left',
+                        backgroundColor: 'white',
+                        paddingRight: '4px', 
                         },
                     }}
                     />
