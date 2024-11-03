@@ -30,10 +30,10 @@ export const ContactSection = () => {
   const sendEmail = (e) => {
     e.preventDefault();
     emailjs.sendForm(
-      'YOUR_SERVICE_ID',
-      'YOUR_TEMPLATE_ID',
+      process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID,
+      process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID,
       form.current,
-      'YOUR_USER_ID'
+      process.env.NEXT_PUBLIC_EMAILJS_USER_ID
     )
       .then((result) => {
         console.log('Email sent successfully:', result.text);

@@ -6,9 +6,10 @@ import Inquire from '../../../public/Inquire.svg';
 import InquireFilled from '../../../public/InquireFilled.svg';
 import { Box, Grid, IconButton, Typography, useMediaQuery, useTheme } from '@mui/material';
 import Image from 'next/image';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import { useSwipeable } from 'react-swipeable';
+import Link from 'next/link';
 
 const pricingPlans = [
   {
@@ -41,6 +42,7 @@ const pricingPlans = [
     contentPieces: '30 Pieces Of Content',
     backgroundColor: 'linear-gradient(141.68deg, #FF6F91 22.07%, #8B4CFC 85.52%)',
     actionColor: '#fff',
+    boxShadow: '0px 10.54px 50.35px 0px #8A3EFF66',
     justify: 'center',
     buttonVariant: 'contained'
   },
@@ -101,11 +103,15 @@ export const PaymentSection = () => {
     const isSm = useMediaQuery(theme.breakpoints.between('sm', 'md')); 
     const isMdUp = useMediaQuery(theme.breakpoints.up('md')); 
 
-    const itemsPerPage = isXs ? 1 : isSm ? 1 : 3;
+    const itemsPerPage = isXs || isSm ? 1 : 3;
 
-    const [currentPage, setCurrentPage] = useState(0);
+    const [currentPage, setCurrentPage] = useState(isXs || isSm ? 1 : 0);
 
     const pageCount = Math.ceil(pricingPlans.length / itemsPerPage);
+
+    useEffect(() => {
+        setCurrentPage(isXs || isSm ? 1 : 0);
+    }, [isXs, isSm]);
 
     const handlePageChange = (index) => {
         setCurrentPage(index);
@@ -235,11 +241,13 @@ export const PaymentSection = () => {
                 </Typography>
                 
                 <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                  {plan.buttonVariant === 'contained' ? (
-                    <Image src={InquireFilled} alt="Inquire"/>
-                  ) : (
-                    <Image src={Inquire} alt="Inquire"/>
-                  )}
+                  <Link href="#contactus">
+                    {plan.buttonVariant === 'contained' ? (
+                      <Image src={InquireFilled} alt="Inquire"/>
+                    ) : (
+                      <Image src={Inquire} alt="Inquire"/>
+                    )}
+                  </Link>
                 </Box>
                 
 
