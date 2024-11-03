@@ -8,6 +8,7 @@ import TryButton from '../../../public/TryButton.svg';
 import ToggleHeader from '../../../public/ToggleHeader.svg';
 
 const pages = [
+  
   { name: 'Home', link: '#' },
   { name: 'Works', link: '#works' },
   { name: 'Approach', link: '#approach' },
