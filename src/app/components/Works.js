@@ -215,10 +215,11 @@ export const WorksSection = () => {
                   >
                     <ReactPlayer
                       width="100%"
-                      height="100%"
+                      height='100%'
                       url="/SampleVideo.mp4"
                       playing={true}
                       muted={true}
+                      controls={true}
                     />
                     <Box
                       sx={{
@@ -229,7 +230,6 @@ export const WorksSection = () => {
                         display: "flex",
                       }}
                     >
-                      <Image src={PlayIcon} alt="Play Icon" />
                     </Box>
                   </Box>
                   <Box
@@ -388,13 +388,21 @@ export const WorksSection = () => {
                       boxShadow: "0px 0px 60px 0px rgba(0, 0, 0, 0.06)",
                     }}
                   >
-                    <Box sx={{ position: "relative" }}>
-                      <ReactPlayer
-                        width="100%"
-                        url="/SampleVideo.mp4"
-                        playing={true}
-                        muted={true}
-                      />
+                    <Box 
+                      sx={{
+                        position: "relative",
+                        borderRadius: "14.871px",
+                        overflow: "hidden",
+                      }}
+                    >
+                    <ReactPlayer
+                      width="100%"
+                      height='100%'
+                      url="/SampleVideo.mp4"
+                      playing={true}
+                      muted={true}
+                      controls={true}
+                    />
                       <Box
                         sx={{
                           position: "absolute",
@@ -404,7 +412,6 @@ export const WorksSection = () => {
                           display: "flex",
                         }}
                       >
-                        <Image src={PlayIcon} alt="Play Icon" />
                       </Box>
                     </Box>
                     <Box
