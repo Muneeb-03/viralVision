@@ -1,19 +1,19 @@
 "use client";
 
-import { AppBar, Box, Toolbar, Menu, Button, MenuItem, Typography } from '@mui/material';
-import { useState } from 'react';
-import Image from 'next/image';
-import Logo from '../../../public/Logo.svg';
-import TryButton from '../../../public/TryButton.svg';
-import ToggleHeader from '../../../public/ToggleHeader.svg';
+import { AppBar, Box, Toolbar, Menu, Button, MenuItem, Typography } from "@mui/material";
+import { useState } from "react";
+import Image from "next/image";
+import Logo from "../../../public/Logo.svg";
+import ToggleHeader from "../../../public/ToggleHeader.svg";
+import { Link } from "react-scroll";
 
 const pages = [
-  { name: 'Home', link: '#home' },
-  { name: 'Works', link: '#works' },
-  { name: 'Approach', link: '#approach' },
-  { name: 'Pricing', link: '#pricing' },
-  { name: 'Testimonials', link: '#testimonials' },
-  { name: 'Contact Us', link: '#contactus' },
+  { name: "Home", link: "home" },
+  { name: "Works", link: "works" },
+  { name: "Approach", link: "approach" },
+  { name: "Pricing", link: "pricing" },
+  { name: "Testimonials", link: "testimonials" },
+  { name: "Contact Us", link: "contact" },
 ];
 
 const settings = [
@@ -46,10 +46,7 @@ function Header() {
         px: { xs: "15px", sm: "30px", md: "75px" },
       }}
     >
-      <Toolbar
-        disableGutters
-        sx={{ justifyContent: "space-between", width: "100%" }}
-      >
+      <Toolbar disableGutters sx={{ justifyContent: "space-between", width: "100%" }}>
         <Box sx={{ display: "flex", alignItems: "center" }}>
           <Image src={Logo} alt="Logo" />
         </Box>
@@ -63,55 +60,53 @@ function Header() {
           }}
         >
           {pages.map(({ name, link }) => (
-            <Button
-              key={name}
-              onClick={handleCloseUserMenu}
-              sx={{
-                my: 2,
-                color: "black",
-                display: "block",
-                fontSize: "18px",
-                fontWeight: 600,
-                letterSpacing: "0.02em",
-                textAlign: "left",
-                textTransform: "capitalize",
-              }}
-              href={link}
-            >
-              {name}
-            </Button>
+            <Link to={link} smooth={true} duration={1000} key={name}>
+              <Button
+                onClick={handleCloseUserMenu}
+                sx={{
+                  my: 2,
+                  mx: 0.2,
+                  color: "black",
+                  display: "block",
+                  fontSize: "18px",
+                  fontWeight: 600,
+                  letterSpacing: "0.02em",
+                  textAlign: "left",
+                  textTransform: "capitalize",
+                  fontFamily: "sans-serif",
+                }}
+              >
+                {name}
+              </Button>
+            </Link>
           ))}
         </Box>
 
         <Box sx={{ display: "flex", alignItems: "center" }}>
           <Box sx={{ display: { xs: "none", md: "block" } }}>
-            <Button
-              sx={{
-                width: "187px",
-                height: "49px",
-                borderRadius: "900px",
-                background:
-                  "var(--Gradient-fix, linear-gradient(102deg, #FF6F91 3.29%, #8B4CFC 100%))",
-                color: "var(--White, #FFF)",
-                fontFamily: "Poppins",
-                fontSize: "18px",
-                fontStyle: "normal",
-                fontWeight: 700,
-                lineHeight: "normal",
-                textEdge: "cap",
-                leadingTrim: "both",
-                textTransform: "none",
-              }}
-            >
-              Try for Free
-            </Button>
+            <Link to="contact" smooth={true} duration={1000}>
+              <Button
+                sx={{
+                  width: "187px",
+                  height: "49px",
+                  borderRadius: "900px",
+                  background: "var(--Gradient-fix, linear-gradient(102deg, #FF6F91 3.29%, #8B4CFC 100%))",
+                  color: "var(--White, #FFF)",
+                  fontSize: "18px",
+                  fontStyle: "normal",
+                  fontWeight: 700,
+                  lineHeight: "normal",
+                  textEdge: "cap",
+                  textTransform: "none",
+                  fontFamily: "Cal Sans, sans-serif !important",
+                }}
+              >
+                Try for Free
+              </Button>
+            </Link>
           </Box>
           <Box sx={{ display: { xs: "block", md: "none" }, ml: "auto" }}>
-            <Image
-              onClick={handleOpenUserMenu}
-              src={ToggleHeader}
-              alt="Toggle Header"
-            />
+            <Image onClick={handleOpenUserMenu} src={ToggleHeader} alt="Toggle Header" />
           </Box>
 
           <Menu
@@ -133,10 +128,7 @@ function Header() {
             {settings.map(({ name, link }) => (
               <MenuItem key={name} onClick={handleCloseUserMenu}>
                 <Typography sx={{ textAlign: "center" }}>
-                  <a
-                    href={link}
-                    style={{ textDecoration: "none", color: "inherit" }}
-                  >
+                  <a href={link} style={{ textDecoration: "none", color: "inherit" }}>
                     {name}
                   </a>
                 </Typography>

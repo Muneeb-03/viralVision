@@ -1,14 +1,16 @@
-"use client"
+"use client";
 
-import { Box, Button, Grid, IconButton, Typography, useMediaQuery, useTheme } from "@mui/material"
-import Image from "next/image"
-import SampleImg from '../../../public/SampleImg.svg';
-import HeartIcon from '../../../public/Heart.svg';
-import CommentIcon from '../../../public/Comment.svg';
-import ProfilePic from '../../../public/ProfilePic.svg';
+import { Box, Button, Grid, IconButton, Typography, useMediaQuery, useTheme } from "@mui/material";
+import Image from "next/image";
+import HeartIcon from "../../../public/Heart.svg";
+import CommentIcon from "../../../public/Comment.svg";
+import ProfilePic from "../../../public/ProfilePic.svg";
 import { useState } from "react";
 import styled from "@emotion/styled";
-import ReactPlayer from "react-player/lazy";
+import dynamic from "next/dynamic";
+import { Element } from "react-scroll";
+
+const ReactPlayer = dynamic(() => import("react-player/lazy"), { ssr: false });
 import { useSwipeable } from "react-swipeable";
 
 const worksData = [
@@ -16,115 +18,99 @@ const worksData = [
     id: 1,
     likes: 700,
     comments: 312,
-    likedBy: 'craig_love and 44,686 others',
-    description: 'The game in Shirpur was amazing and I want to share some photos',
-    date: 'September 19',
-    image: SampleImg
+    likedBy: "craig_love and 44,686 others",
+    description: "The game in Shirpur was amazing and I want to share some photos",
+    username: "@jhon_doe",
+    video: "https://www.youtube.com/watch?v=VCPGMjCW0is",
   },
   {
     id: 2,
     likes: 700,
     comments: 312,
-    likedBy: 'craig_love and 44,686 others',
-    description: 'The game in Lahore was amazing and I want to share some photos',
-    date: 'September 19',
-    image: SampleImg
+    likedBy: "craig_love and 44,686 others",
+    description: "The game in Lahore was amazing and I want to share some photos",
+    username: "@crazy_marketing",
+    video: "https://www.youtube.com/watch?v=ZvChhHNTz1g",
   },
   {
     id: 3,
     likes: 700,
     comments: 312,
-    likedBy: 'craig_love and 44,686 others',
-    description: 'The game in Karachi was amazing and I want to share some photos',
-    date: 'September 19',
-    image: SampleImg
+    likedBy: "craig_love and 44,686 others",
+    description: "The game in Karachi was amazing and I want to share some photos",
+    username: "@viral_videos",
+    video: "https://www.youtube.com/watch?v=4ajmfzj9G1g&t=1s",
   },
   {
     id: 4,
     likes: 700,
     comments: 312,
-    likedBy: 'craig_love and 44,686 others',
-    description: 'The game in Islamabad was amazing and I want to share some photos',
-    date: 'September 19',
-    image: SampleImg
+    likedBy: "craig_love and 44,686 others",
+    description: "The game in Islamabad was amazing and I want to share some photos",
+    username: "@times_now",
+    video: "https://www.youtube.com/watch?v=9TnfDecpnQQ",
   },
 ];
 
-const DotButton = styled(IconButton)(({ theme, active }) => ({
-    width: active ? '14.9px' : '9.17px',
-    height: '9.17px',
-    padding: 0,
-    background: active
-      ? 'linear-gradient(90deg, #8A00FF 0%, #FF007A 100%)'
-      : 'linear-gradient(90deg, #8A00FF 0%, #FF007A 100%)',
-    opacity: active ? 1 : 0.3,
-    borderRadius: '18.34px',
-    transition: 'all 0.3s ease',
-    '&:hover': {
-      background: active
-        ? 'linear-gradient(90deg, #8A00FF 0%, #FF007A 100%)'
-        : 'linear-gradient(90deg, #8A00FF 0%, #FF007A 100%)', 
-    },
+const DotButton = styled(IconButton, {
+  shouldForwardProp: (prop) => prop !== "active",
+})(({ theme, active }) => ({
+  width: active ? "14.9px" : "9.17px",
+  height: "9.17px",
+  padding: 0,
+  background: "linear-gradient(90deg, #8A00FF 0%, #FF007A 100%)",
+  opacity: active ? 1 : 0.3,
+  borderRadius: "18.34px",
+  transition: "all 0.3s ease",
+  "&:hover": {
+    background: "linear-gradient(90deg, #8A00FF 0%, #FF007A 100%)",
+  },
 }));
 
 export const WorksSection = () => {
-    const theme = useTheme();
-    const isXs = useMediaQuery(theme.breakpoints.down('sm')); 
-    const isSm = useMediaQuery(theme.breakpoints.between('sm', 'md')); 
-    const isMdUp = useMediaQuery(theme.breakpoints.up('md')); 
+  const theme = useTheme();
 
-    const itemsPerPage = 1;
+  const isMdUp = useMediaQuery(theme.breakpoints.up("md"));
 
-    const [currentPage, setCurrentPage] = useState(0);
+  const itemsPerPage = 1;
 
-    const pageCount = Math.ceil(worksData.length / itemsPerPage);
+  const [currentPage, setCurrentPage] = useState(0);
 
-    const handlePageChange = (index) => {
-        setCurrentPage(index);
-    };
+  const pageCount = Math.ceil(worksData.length / itemsPerPage);
 
-    const displayedWorks = worksData.slice(
-        currentPage * itemsPerPage,
-        currentPage * itemsPerPage + itemsPerPage
-    );
+  const handlePageChange = (index) => {
+    setCurrentPage(index);
+  };
 
-    const handlers = useSwipeable({
-      onSwipedLeft: () => setCurrentPage((prevPage) => (prevPage + 1) % pageCount),
-      onSwipedRight: () => setCurrentPage((prevPage) => (prevPage - 1 + pageCount) % pageCount),
-      preventScrollOnSwipe: true,
-      trackMouse: true 
-    });
+  const displayedWorks = worksData.slice(currentPage * itemsPerPage, currentPage * itemsPerPage + itemsPerPage);
 
-    return (
-      <Box
-        id="works"
-        sx={{ mt: "50px", px: { xs: "15px", sm: "30px", md: "75px" } }}
-      >
-        <Box
-          display="flex"
-          justifyContent={{ xs: "center", sm: "center", md: "space-between" }}
-          alignItems="center"
-          mb={3}
-        >
+  const handlers = useSwipeable({
+    onSwipedLeft: () => setCurrentPage((prevPage) => (prevPage + 1) % pageCount),
+    onSwipedRight: () => setCurrentPage((prevPage) => (prevPage - 1 + pageCount) % pageCount),
+    preventScrollOnSwipe: true,
+    trackMouse: true,
+  });
+
+  return (
+    <Element name="works">
+      <Box sx={{ mt: "50px", px: { xs: "15px", sm: "30px", md: "75px" } }}>
+        <Box display="flex" justifyContent={{ xs: "center", sm: "center", md: "space-between" }} alignItems="center" mb={3}>
           <Box textAlign={{ xs: "center", sm: "center", md: "left" }}>
             <Typography
-              variant="h4"
-              component="h2"
-              style={{
-                fontFamily: "Cal Sans",
-                fontSize: "56px",
+              sx={{
+                fontSize: { xs: "44px", sm: "48px", md: "56px" },
                 fontWeight: 600,
-                lineHeight: "68.39px",
+                lineHeight: { xs: "40px", sm: "50px", md: "68.39px" },
                 letterSpacing: "1.12px",
                 textTransform: "capitalize",
                 color: "var(--Black, #111)",
+                mb: { xs: 2, sm: 2 },
               }}
             >
               Our{" "}
               <span
                 style={{
-                  background:
-                    "linear-gradient(102deg, #FF6F91 3.29%, #8B4CFC 100%)",
+                  background: "linear-gradient(102deg, #FF6F91 3.29%, #8B4CFC 100%)",
                   WebkitBackgroundClip: "text",
                   WebkitTextFillColor: "transparent",
                 }}
@@ -137,17 +123,17 @@ export const WorksSection = () => {
               color="textSecondary"
               sx={{
                 color: "var(--Black, #111)",
-                fontFamily: "Inter",
-                fontSize: "21.11px",
+                fontSize: { xs: "16px", sm: "18px", md: "21.11px" },
                 fontWeight: 400,
-                lineHeight: "52.775px",
+                lineHeight: { xs: "24px", sm: "30px", md: "52.775px" },
                 letterSpacing: "-0.211px",
                 opacity: 0.7,
               }}
             >
-              We guarantee that you will be one of our happy customers as well
+              We guarantee that you will be one of our happy customers as well.
             </Typography>
           </Box>
+
           <Box sx={{ display: { xs: "none", sm: "none", md: "block" } }}>
             <Button
               variant="contained"
@@ -166,11 +152,11 @@ export const WorksSection = () => {
                 background: "linear-gradient(90deg, #8A00FF 0%, #FF007A 100%)",
                 backgroundColor: "transparent",
                 color: "#FDFDFD",
-                fontFamily: "Inter",
                 fontSize: "20.26px",
-                fontWeight: 700,
+                fontWeight: 500,
                 lineHeight: "24.52px",
                 textAlign: "center",
+                boxShadow: "none",
               }}
             >
               See More
@@ -178,7 +164,6 @@ export const WorksSection = () => {
           </Box>
         </Box>
 
-        {/* Conditional Posts Section */}
         {isMdUp ? (
           <Grid {...handlers} container spacing={3}>
             {worksData.map((work, index) => (
@@ -196,13 +181,12 @@ export const WorksSection = () => {
               >
                 <Box
                   sx={{
-                    width: "100%",
-                    maxWidth: "638.534px",
+                    width: "95%",
                     flexShrink: 0,
                     borderRadius: "16.103px",
                     backgroundColor: "#FFF",
                     padding: "20px",
-                    boxShadow: " 0px 0px 60px 0px rgba(0, 0, 0, 0.06)",
+                    boxShadow: "0px 0px 60px 0px rgba(0, 0, 0, 0.06)",
                   }}
                 >
                   <Box
@@ -210,26 +194,11 @@ export const WorksSection = () => {
                       position: "relative",
                       borderRadius: "14.871px",
                       overflow: "hidden",
+                      width: "583px",
+                      height: "407px",
                     }}
                   >
-                    <ReactPlayer
-                      width="100%"
-                      height='100%'
-                      url="/SampleVideo.mp4"
-                      playing={true}
-                      muted={true}
-                      controls={true}
-                    />
-                    <Box
-                      sx={{
-                        position: "absolute",
-                        top: "50%",
-                        left: "50%",
-                        transform: "translate(-50%, -50%)",
-                        display: "flex",
-                      }}
-                    >
-                    </Box>
+                    <ReactPlayer width="100%" height="100%" url={work.video} playing={true} muted={true} controls={false} />
                   </Box>
                   <Box
                     sx={{
@@ -243,8 +212,7 @@ export const WorksSection = () => {
                     <Image src={HeartIcon} alt="Like icon" />
                     <Typography
                       sx={{
-                        color: "#000",
-                        fontFamily: "Inter",
+                        color: "#262626",
                         fontSize: {
                           xs: "16.23px",
                           sm: "16.23px",
@@ -269,7 +237,7 @@ export const WorksSection = () => {
                     <Image src={CommentIcon} alt="Comment Icon" />
                     <Typography
                       sx={{
-                        color: "#000",
+                        color: "#262626",
                         fontFamily: "Inter",
                         fontSize: {
                           xs: "16.23px",
@@ -367,7 +335,7 @@ export const WorksSection = () => {
                       letterSpacing: "0.089px",
                     }}
                   >
-                    {work.date}
+                    {work.username}
                   </Typography>
                 </Box>
               </Grid>
@@ -375,33 +343,26 @@ export const WorksSection = () => {
           </Grid>
         ) : (
           <>
-            <Grid {...handlers} container spacing={3}>
+            <Grid {...handlers} container spacing={2}>
               {displayedWorks.map((work, index) => (
                 <Grid item xs={12} key={index}>
                   <Box
                     sx={{
-                      width: "100%",
+                      width: "95%",
                       borderRadius: "16.103px",
                       backgroundColor: "#FFF",
                       padding: "20px",
                       boxShadow: "0px 0px 60px 0px rgba(0, 0, 0, 0.06)",
                     }}
                   >
-                    <Box 
+                    <Box
                       sx={{
                         position: "relative",
                         borderRadius: "14.871px",
                         overflow: "hidden",
                       }}
                     >
-                    <ReactPlayer
-                      width="100%"
-                      height='100%'
-                      url="/SampleVideo.mp4"
-                      playing={true}
-                      muted={true}
-                      controls={true}
-                    />
+                      <ReactPlayer width="100%" height="266px" url={work.video} playing={true} muted={true} controls={true} />
                       <Box
                         sx={{
                           position: "absolute",
@@ -410,8 +371,7 @@ export const WorksSection = () => {
                           transform: "translate(-50%, -50%)",
                           display: "flex",
                         }}
-                      >
-                      </Box>
+                      ></Box>
                     </Box>
                     <Box
                       sx={{
@@ -422,7 +382,15 @@ export const WorksSection = () => {
                         alignItems: "center",
                       }}
                     >
-                      <Image src={HeartIcon} alt="Like icon" />
+                      <Box
+                        sx={{
+                          width: { xs: 28, sm: 30, md: 40 },
+                          height: "auto",
+                          display: "inline-block",
+                        }}
+                      >
+                        <Image src={HeartIcon} alt="Like icon" layout="responsive" />
+                      </Box>
                       <Typography
                         sx={{
                           color: "#000",
@@ -432,7 +400,6 @@ export const WorksSection = () => {
                             sm: "16.23px",
                             md: "23.147px",
                           },
-                          fontSize: "23.147px",
                           fontWeight: 400,
                           lineHeight: {
                             xs: "22.473px",
@@ -448,7 +415,15 @@ export const WorksSection = () => {
                       >
                         {work.likes}
                       </Typography>
-                      <Image src={CommentIcon} alt="Comment Icon" />
+                      <Box
+                        sx={{
+                          width: { xs: 28, sm: 30, md: 40 },
+                          height: "auto",
+                          display: "inline-block",
+                        }}
+                      >
+                        <Image src={CommentIcon} alt="Comment Icon" layout="responsive" />
+                      </Box>
                       <Typography
                         sx={{
                           color: "#000",
@@ -458,7 +433,6 @@ export const WorksSection = () => {
                             sm: "16.23px",
                             md: "23.147px",
                           },
-                          fontSize: "23.147px",
                           fontWeight: 400,
                           lineHeight: {
                             xs: "22.473px",
@@ -549,7 +523,7 @@ export const WorksSection = () => {
                         letterSpacing: "0.089px",
                       }}
                     >
-                      {work.date}
+                      {work.username}
                     </Typography>
                   </Box>
                 </Grid>
@@ -564,15 +538,12 @@ export const WorksSection = () => {
               }}
             >
               {Array.from({ length: pageCount }, (_, index) => (
-                <DotButton
-                  key={index}
-                  active={currentPage === index}
-                  onClick={() => handlePageChange(index)}
-                />
+                <DotButton key={index} active={currentPage === index} onClick={() => handlePageChange(index)} />
               ))}
             </Box>
           </>
         )}
       </Box>
-    );
+    </Element>
+  );
 };

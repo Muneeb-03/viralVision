@@ -1,13 +1,6 @@
 "use client";
 
-import {
-  Box,
-  Grid,
-  IconButton,
-  Typography,
-  useMediaQuery,
-  useTheme,
-} from "@mui/material";
+import { Box, Grid, IconButton, Typography, useMediaQuery, useTheme } from "@mui/material";
 import ExpertContent from "../../../public/ExpertContent.svg";
 import Management from "../../../public/Management.svg";
 import Strategic from "../../../public/Strategic.svg";
@@ -20,37 +13,32 @@ const approachesData = [
   {
     image: ExpertContent,
     title: "Expert Content Creators",
-    description:
-      "We specialize in headhunting the ideal content creators who align perfectly with your brand's voice and style. Our meticulous selection process ensures that each creator embodies your brand values and resonates.",
+    description: "We specialize in headhunting the ideal content creators who align perfectly with your brand's voice and style. Our meticulous selection process ensures that each creator embodies your brand values and resonates.",
   },
   {
     image: Strategic,
     title: "Strategic Scripting",
-    description:
-      "Our talented team specializes in crafting engaging scripts tailored to captivate your target audience. We understand that every brand has a unique story, and we take the time to research and analyze your audience.",
+    description: "Our talented team specializes in crafting engaging scripts tailored to captivate your target audience. We understand that every brand has a unique story, and we take the time to research and analyze your audience.",
   },
   {
     image: Management,
     title: "Full Management",
-    description:
-      "We take care of everything from content creation to posting, allowing you to focus on what you do best—running your business. Our comprehensive service includes brainstorming ideas, producing high-quality videos.",
+    description: "We take care of everything from content creation to posting, allowing you to focus on what you do best—running your business. Our comprehensive service includes brainstorming ideas, producing high-quality videos.",
   },
 ];
 
-const DotButton = styled(IconButton)(({ theme, active }) => ({
+const DotButton = styled(IconButton, {
+  shouldForwardProp: (prop) => prop !== "active",
+})(({ theme, active }) => ({
   width: active ? "14.9px" : "9.17px",
   height: "9.17px",
   padding: 0,
-  background: active
-    ? "linear-gradient(90deg, #8A00FF 0%, #FF007A 100%)"
-    : "linear-gradient(90deg, #8A00FF 0%, #FF007A 100%)",
+  background: "linear-gradient(90deg, #8A00FF 0%, #FF007A 100%)",
   opacity: active ? 1 : 0.3,
   borderRadius: "18.34px",
   transition: "all 0.3s ease",
   "&:hover": {
-    background: active
-      ? "linear-gradient(90deg, #8A00FF 0%, #FF007A 100%)"
-      : "linear-gradient(90deg, #8A00FF 0%, #FF007A 100%)",
+    background: "linear-gradient(90deg, #8A00FF 0%, #FF007A 100%)",
   },
 }));
 
@@ -70,16 +58,11 @@ export const ApproachSection = () => {
     setCurrentPage(index);
   };
 
-  const displayedApproaches = approachesData.slice(
-    currentPage * itemsPerPage,
-    currentPage * itemsPerPage + itemsPerPage
-  );
+  const displayedApproaches = approachesData.slice(currentPage * itemsPerPage, currentPage * itemsPerPage + itemsPerPage);
 
   const handlers = useSwipeable({
-    onSwipedLeft: () =>
-      setCurrentPage((prevPage) => (prevPage + 1) % pageCount),
-    onSwipedRight: () =>
-      setCurrentPage((prevPage) => (prevPage - 1 + pageCount) % pageCount),
+    onSwipedLeft: () => setCurrentPage((prevPage) => (prevPage + 1) % pageCount),
+    onSwipedRight: () => setCurrentPage((prevPage) => (prevPage - 1 + pageCount) % pageCount),
     preventScrollOnSwipe: true,
     trackMouse: true,
   });
@@ -89,7 +72,7 @@ export const ApproachSection = () => {
       id="approach"
       sx={{
         mt: "75px",
-        width: "100%",
+        width: isMdUp ? "100%" : undefined,
         px: { xs: "15px", sm: "30px", md: "75px" },
       }}
     >
@@ -97,22 +80,21 @@ export const ApproachSection = () => {
         <Typography
           variant="h4"
           component="h2"
-          style={{
-            fontFamily: "Cal Sans",
-            fontSize: "44px",
+          sx={{
+            fontSize: { xs: "28px", sm: "36px", md: "44px" },
             fontStyle: "normal",
             fontWeight: 600,
-            lineHeight: "68.39px",
+            lineHeight: { xs: "40px", sm: "50px", md: "68.39px" },
             letterSpacing: "0.88px",
             textTransform: "capitalize",
             color: "var(--Black, #111)",
+            textAlign: "center",
           }}
         >
           Our{" "}
           <span
             style={{
-              background:
-                "linear-gradient(102deg, #FF6F91 3.29%, #8B4CFC 100%)",
+              background: "linear-gradient(102deg, #FF6F91 3.29%, #8B4CFC 100%)",
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
             }}
@@ -120,25 +102,22 @@ export const ApproachSection = () => {
             Approach
           </span>
         </Typography>
+
         <Typography
           sx={{
-            fontFamily: "Inter",
             textAlign: "center",
-            leadingTrim: "both",
-            textEdge: "cap",
-            fontSize: "20px",
+            fontSize: { xs: "16px", sm: "18px", md: "20px" },
             fontWeight: 400,
             fontStyle: "normal",
-            lineHeight: "37.48px",
+            lineHeight: { xs: "28px", sm: "32px", md: "37.48px" },
             color: "#050623",
-            width: { xs: "100%", lg: "80%" },
+            width: { xs: "90%", sm: "85%", lg: "80%" },
             mx: "auto",
-            mt: "20px",
+            mt: { xs: "15px", sm: "18px", md: "20px" },
+            opacity: 0.7,
           }}
         >
-          Our process is designed to ensure that every piece of content aligns
-          seamlessly with your brand's identity and objectives. Here's how we do
-          it:
+          Our process is designed to ensure that every piece of content aligns seamlessly with your brand's identity and objectives. Here's how we do it:
         </Typography>
       </Box>
 
@@ -152,7 +131,6 @@ export const ApproachSection = () => {
           justifyContent: { xs: "center", sm: "center", md: "flex-start" },
           gap: 3,
           mb: 4,
-          flexWrap: "wrap",
         }}
       >
         {displayedApproaches.map((approach, index) => (
@@ -160,7 +138,7 @@ export const ApproachSection = () => {
             key={approach.title}
             sx={{
               flex: "100%",
-              maxWidth: { xs: "100%", sm: "45%", md: "30%" },
+              maxWidth: { xs: "100%", sm: "45%", md: "26.5%" },
               borderRadius: "16.103px",
               backgroundColor: "#FFF",
               padding: "20px",
@@ -173,7 +151,6 @@ export const ApproachSection = () => {
             <Image src={approach.image} alt="approach" />
             <Typography
               sx={{
-                fontFamily: "Cal Sans",
                 fontSize: { xs: "18.844px", sm: "18.844px", md: "21.11px" },
                 fontStyle: "normal",
                 fontWeight: 600,
@@ -188,7 +165,6 @@ export const ApproachSection = () => {
 
             <Typography
               sx={{
-                fontFamily: "Inter",
                 fontSize: { xs: "13.705px", sm: "13.705px", md: "15.353px" },
                 fontWeight: 400,
                 lineHeight: { xs: "23.983px", sm: "23.983px", md: "26.869px" },
@@ -206,11 +182,7 @@ export const ApproachSection = () => {
       {!isMdUp && (
         <Box sx={{ display: "flex", justifyContent: "center", gap: "5px" }}>
           {Array.from({ length: pageCount }, (_, index) => (
-            <DotButton
-              key={index}
-              active={index === currentPage}
-              onClick={() => handlePageChange(index)}
-            />
+            <DotButton key={index} active={index === currentPage} onClick={() => handlePageChange(index)} />
           ))}
         </Box>
       )}

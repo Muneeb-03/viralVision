@@ -1,3 +1,6 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@font-face {
+  font-family: "Cal Sans";
+  src: url("/src/fonts/CalSans-SemiBold.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+}
