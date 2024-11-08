@@ -1,6 +1,6 @@
 "use client";
 
-import { Box, Button, Grid, IconButton, TextField, Typography, useMediaQuery, useTheme } from "@mui/material";
+import { Box, Button, Dialog, Grid, IconButton, TextField, Typography, useMediaQuery, useTheme } from "@mui/material";
 import { useEffect, useRef, useState } from "react";
 import Address from "../../../public/Address.svg";
 import Phone from "../../../public/Phone.svg";
@@ -45,6 +45,7 @@ const DotButton = styled(IconButton, {
 export const ContactSection = () => {
   const theme = useTheme();
   const isMdUp = useMediaQuery(theme.breakpoints.up("md"));
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   const [currentPage, setCurrentPage] = useState(0);
   const itemsPerPage = isMdUp ? contactDetails.length : 1;
@@ -56,6 +57,22 @@ export const ContactSection = () => {
   useEffect(() => {
     if (isMdUp) setCurrentPage(0);
   }, [isMdUp]);
+
+  // Handle hash change to open dialog
+  useEffect(() => {
+    const handleHashChange = () => {
+      if (window.location.hash === '#contactus') {
+        setIsDialogOpen(true);
+      }
+    };
+
+    // Check hash on mount
+    handleHashChange();
+
+    // Listen for hash changes
+    window.addEventListener('hashchange', handleHashChange);
+    return () => window.removeEventListener('hashchange', handleHashChange);
+  }, []);
 
   const handlePageChange = (index) => {
     setCurrentPage(index);
@@ -78,18 +95,27 @@ export const ContactSection = () => {
       (result) => {
         console.log("Email sent successfully:", result.text);
         e.target.reset();
+        setIsDialogOpen(false); // Close dialog after successful submission
       },
       (error) => {
         console.error("Email sending failed:", error.text);
       }
     );
   };
+  
+
+  const handleClose = () => {
+    setIsDialogOpen(false);
+    if (window.location.hash === '#contactus') {
+      window.history.pushState("", document.title, window.location.pathname + window.location.search);
+    }
+  };
 
   return (
     <Box
       sx={{
         mt: "75px",
-        px: { xs: "10px" },
+        px: { xs: "15px", sm: "30px", md: "75px" },
       }}
     >
       <Element name="contact">
@@ -189,156 +215,223 @@ export const ContactSection = () => {
             ))}
           </Box>
         )}
-        <Box sx={{ mt: "75px" }}>
-          <Grid container spacing={4}>
-            <Grid item xs={12} md={6}>
-              <Map />
-            </Grid>
-            <Grid item xs={12} md={6}>
-              <Box
+
+        <Dialog 
+          open={isDialogOpen} 
+          onClose={handleClose}
+          maxWidth="sm"
+          fullWidth
+        >
+          <Box
+            sx={{
+              p: "25px",
+              boxShadow: "0px 0px 60px 0px rgba(0, 0, 0, 0.06)",
+              height: "auto",
+            }}
+          >
+            <form
+              ref={form}
+              onSubmit={sendEmail}
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                gap: "15px",
+              }}
+            >
+              <TextField
+                label="Enter your name"
+                name="user_name"
+                required
+                fullWidth
                 sx={{
-                  p: "25px",
-                  boxShadow: "0px 0px 60px 0px rgba(0, 0, 0, 0.06)",
-                  height: "auto",
+                  height: "55px",
+                  borderRadius: "5px",
+                  border: "1px solid #E8E8E8",
+                  "& .MuiOutlinedInput-root": {
+                    "& fieldset": {
+                      border: "none",
+                    },
+                    "&:hover fieldset": {
+                      border: "none",
+                    },
+                    "&.Mui-focused fieldset": {
+                      border: "none",
+                    },
+                  },
+                }}
+                InputLabelProps={{
+                  sx: {
+                    color: "#000B33",
+                    fontFamily: "Inter",
+                    fontSize: "14px",
+                    fontWeight: 400,
+                    lineHeight: "21px",
+                    textAlign: "left",
+                    backgroundColor: "white",
+                    paddingRight: "4px",
+                  },
+                }}
+              />
+              <TextField
+                label="Enter your email address"
+                name="user_email"
+                type="email"
+                required
+                fullWidth
+                sx={{
+                  height: "55px",
+                  borderRadius: "5px",
+                  border: "1px solid #E8E8E8",
+                  "& .MuiOutlinedInput-root": {
+                    "& fieldset": {
+                      border: "none",
+                    },
+                    "&:hover fieldset": {
+                      border: "none",
+                    },
+                    "&.Mui-focused fieldset": {
+                      border: "none",
+                    },
+                  },
+                }}
+                InputLabelProps={{
+                  sx: {
+                    color: "#000B33",
+                    fontFamily: "Inter",
+                    fontSize: "14px",
+                    fontWeight: 400,
+                    lineHeight: "21px",
+                    textAlign: "left",
+                    backgroundColor: "white",
+                    paddingRight: "4px",
+                  },
+                }}
+              />
+              <TextField
+                label="Business Name"
+                name="business"
+                fullWidth
+                sx={{
+                  height: "55px",
+                  borderRadius: "5px",
+                  border: "1px solid #E8E8E8",
+                  "& .MuiOutlinedInput-root": {
+                    "& fieldset": {
+                      border: "none",
+                    },
+                    "&:hover fieldset": {
+                      border: "none",
+                    },
+                    "&.Mui-focused fieldset": {
+                      border: "none",
+                    },
+                  },
+                }}
+                InputLabelProps={{
+                  sx: {
+                    color: "#000B33",
+                    fontFamily: "Inter",
+                    fontSize: "14px",
+                    fontWeight: 400,
+                    lineHeight: "21px",
+                    textAlign: "left",
+                    backgroundColor: "white",
+                    paddingRight: "4px",
+                  },
+                }}
+              />
+              <TextField
+                label="Phone Number"
+                name="phone"
+                type="tel"
+                fullWidth
+                sx={{
+                  height: "55px",
+                  borderRadius: "5px",
+                  border: "1px solid #E8E8E8",
+                  "& .MuiOutlinedInput-root": {
+                    "& fieldset": {
+                      border: "none",
+                    },
+                    "&:hover fieldset": {
+                      border: "none",
+                    },
+                    "&.Mui-focused fieldset": {
+                      border: "none",
+                    },
+                  },
+                }}
+                InputLabelProps={{
+                  sx: {
+                    color: "#000B33",
+                    fontFamily: "Inter",
+                    fontSize: "14px",
+                    fontWeight: 400,
+                    lineHeight: "21px",
+                    textAlign: "left",
+                    backgroundColor: "white",
+                    paddingRight: "4px",
+                  },
+                }}
+              />
+              <TextField
+                label="Write your message"
+                name="message"
+                multiline
+                rows={4}
+                required
+                fullWidth
+                sx={{
+                  height: "150px",
+                  borderRadius: "5px",
+                  border: "1px solid #E8E8E8",
+                  "& .MuiOutlinedInput-root": {
+                    "& fieldset": {
+                      border: "none",
+                    },
+                    "&:hover fieldset": {
+                      border: "none",
+                    },
+                    "&.Mui-focused fieldset": {
+                      border: "none",
+                    },
+                  },
+                }}
+                InputLabelProps={{
+                  sx: {
+                    color: "#000B33",
+                    fontFamily: "Inter",
+                    fontSize: "14px",
+                    fontWeight: 400,
+                    lineHeight: "21px",
+                    textAlign: "left",
+                    backgroundColor: "white",
+                    paddingRight: "4px",
+                  },
+                }}
+              />
+              <Button
+                type="submit"
+                sx={{
+                  mt: 2,
+                  width: "150px",
+                  height: "50px",
+                  borderRadius: "52.34px",
+                  padding: "6.37px 12.73px",
+                  background: "linear-gradient(90deg, #FF6F91 0%, #8B4CFC 100%)",
+                  color: "#FFF",
+                  fontFamily: "Inter",
+                  fontWeight: 400,
+                  fontSize: "16px",
+                  textTransform: "none",
                 }}
               >
-                <form
-                  ref={form}
-                  onSubmit={sendEmail}
-                  style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    gap: "15px",
-                  }}
-                >
-                  <TextField
-                    label="Enter your name"
-                    name="user_name"
-                    required
-                    fullWidth
-                    sx={{
-                      height: "55px",
-                      borderRadius: "5px",
-                      border: "1px solid #E8E8E8",
-                      "& .MuiOutlinedInput-root": {
-                        "& fieldset": {
-                          border: "none",
-                        },
-                        "&:hover fieldset": {
-                          border: "none",
-                        },
-                        "&.Mui-focused fieldset": {
-                          border: "none",
-                        },
-                      },
-                    }}
-                    InputLabelProps={{
-                      sx: {
-                        color: "#000B33",
-                        fontFamily: "Inter",
-                        fontSize: "14px",
-                        fontWeight: 400,
-                        lineHeight: "21px",
-                        textAlign: "left",
-                        backgroundColor: "white",
-                        paddingRight: "4px",
-                      },
-                    }}
-                  />
-                  <TextField
-                    label="Enter your email address"
-                    name="user_email"
-                    type="email"
-                    required
-                    fullWidth
-                    sx={{
-                      height: "55px",
-                      borderRadius: "5px",
-                      border: "1px solid #E8E8E8",
-                      "& .MuiOutlinedInput-root": {
-                        "& fieldset": {
-                          border: "none",
-                        },
-                        "&:hover fieldset": {
-                          border: "none",
-                        },
-                        "&.Mui-focused fieldset": {
-                          border: "none",
-                        },
-                      },
-                    }}
-                    InputLabelProps={{
-                      sx: {
-                        color: "#000B33",
-                        fontFamily: "Inter",
-                        fontSize: "14px",
-                        fontWeight: 400,
-                        lineHeight: "21px",
-                        textAlign: "left",
-                        backgroundColor: "white",
-                        paddingRight: "4px",
-                      },
-                    }}
-                  />
-                  <TextField
-                    label="Write your message"
-                    name="message"
-                    multiline
-                    rows={4}
-                    required
-                    fullWidth
-                    sx={{
-                      height: "150px",
-                      borderRadius: "5px",
-                      border: "1px solid #E8E8E8",
-                      "& .MuiOutlinedInput-root": {
-                        "& fieldset": {
-                          border: "none",
-                        },
-                        "&:hover fieldset": {
-                          border: "none",
-                        },
-                        "&.Mui-focused fieldset": {
-                          border: "none",
-                        },
-                      },
-                    }}
-                    InputLabelProps={{
-                      sx: {
-                        color: "#000B33",
-                        fontFamily: "Inter",
-                        fontSize: "14px",
-                        fontWeight: 400,
-                        lineHeight: "21px",
-                        textAlign: "left",
-                        backgroundColor: "white",
-                        paddingRight: "4px",
-                      },
-                    }}
-                  />
-                  <Button
-                    type="submit"
-                    sx={{
-                      mt: 2,
-                      width: "150px",
-                      height: "50px",
-                      borderRadius: "52.34px",
-                      padding: "6.37px 12.73px",
-                      background: "linear-gradient(90deg, #FF6F91 0%, #8B4CFC 100%)",
-                      color: "#FFF",
-                      fontFamily: "Inter",
-                      fontWeight: 400,
-                      fontSize: "16px",
-                      textTransform: "none",
-                    }}
-                  >
-                    Send Message
-                  </Button>
-                </form>
-              </Box>
-            </Grid>
-          </Grid>
-        </Box>{" "}
+                Send Message
+              </Button>
+            </form>
+          </Box>
+        </Dialog>
+
       </Element>
     </Box>
   );

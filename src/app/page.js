@@ -102,6 +102,7 @@ export default function Home() {
           <Image src={Banner} alt="Banner" style={{ width: "100%", height: "100%" }} />
 
           <Box
+            onClick={() => {window.location.hash = 'contactus';}}
             sx={{
               position: "absolute",
               top: "50%",

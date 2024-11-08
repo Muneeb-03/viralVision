@@ -43,6 +43,7 @@ function Header() {
         backgroundColor: "white",
         border: "none",
         boxShadow: "none",
+        width: '100%',
         px: { xs: "15px", sm: "30px", md: "75px" },
       }}
     >
@@ -84,26 +85,26 @@ function Header() {
 
         <Box sx={{ display: "flex", alignItems: "center" }}>
           <Box sx={{ display: { xs: "none", md: "block" } }}>
-            <Link to="contact" smooth={true} duration={1000}>
-              <Button
-                sx={{
-                  width: "187px",
-                  height: "49px",
-                  borderRadius: "900px",
-                  background: "var(--Gradient-fix, linear-gradient(102deg, #FF6F91 3.29%, #8B4CFC 100%))",
-                  color: "var(--White, #FFF)",
-                  fontSize: "18px",
-                  fontStyle: "normal",
-                  fontWeight: 700,
-                  lineHeight: "normal",
-                  textEdge: "cap",
-                  textTransform: "none",
-                  fontFamily: "Cal Sans, sans-serif !important",
-                }}
-              >
-                Try for Free
-              </Button>
-            </Link>
+            <Button
+              onClick={() => {window.location.hash = 'contactus';}}
+              sx={{
+                width: "187px",
+                height: "49px",
+                display: {md: 'none', lg: 'block'},
+                borderRadius: "900px",
+                background: "var(--Gradient-fix, linear-gradient(102deg, #FF6F91 3.29%, #8B4CFC 100%))",
+                color: "var(--White, #FFF)",
+                fontSize: "18px",
+                fontStyle: "normal",
+                fontWeight: 700,
+                lineHeight: "normal",
+                textEdge: "cap",
+                textTransform: "none",
+                fontFamily: "Cal Sans, sans-serif !important",
+              }}
+            >
+              Try for Free
+            </Button>
           </Box>
           <Box sx={{ display: { xs: "block", md: "none" }, ml: "auto" }}>
             <Image onClick={handleOpenUserMenu} src={ToggleHeader} alt="Toggle Header" />

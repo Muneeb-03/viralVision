@@ -130,7 +130,7 @@ export const WorksSection = () => {
                 opacity: 0.7,
               }}
             >
-              We guarantee that you will be one of our happy customers as well.
+              We guarantee your brand will go viral within 90 days of working with us, or your money back!
             </Typography>
           </Box>
 
@@ -194,8 +194,8 @@ export const WorksSection = () => {
                       position: "relative",
                       borderRadius: "14.871px",
                       overflow: "hidden",
-                      width: "583px",
-                      height: "407px",
+                      width: "100%",
+                      height: "437px",
                     }}
                   >
                     <ReactPlayer width="100%" height="100%" url={work.video} playing={true} muted={true} controls={false} />

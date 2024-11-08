@@ -96,7 +96,7 @@ const LandingSection = () => {
                   opacity: "70%",
                 }}
               >
-                We craft Instagram Reels and TikTok that grab attention, boost your brand, and connect with your audience through creative trends and authentic storytelling
+                We Craft and Fully Manage Instagram Reels and TikToks that grab attention, boost your brand, and connect with your audience through creative trends and authentic storytelling
               </Typography>
             </Box>
 
@@ -109,8 +109,10 @@ const LandingSection = () => {
               }}
             >
               <Box sx={{ width: { xs: "150px", sm: "246px", md: "246px" } }}>
-                <Link to="contact" smooth={true} duration={1000}>
                   <Button
+                    onClick={() => {
+                      window.location.hash = 'contactus';
+                    }}
                     sx={{
                       width: { xs: "150px", sm: "246px", md: "246px" },
                       height: { xs: "50px", sm: "50px", md: "60.006px" },
@@ -133,7 +135,6 @@ const LandingSection = () => {
                   >
                     Get Started Now
                   </Button>
-                </Link>
               </Box>
               <Box sx={{ width: { xs: "150px", sm: "246px", md: "246px" } }}>
                 <Link to="works" smooth={true} duration={1000}>

@@ -72,7 +72,7 @@ export const ApproachSection = () => {
       id="approach"
       sx={{
         mt: "75px",
-        width: isMdUp ? "100%" : undefined,
+        // width: isMdUp ? "100%" : undefined,
         px: { xs: "15px", sm: "30px", md: "75px" },
       }}
     >
@@ -128,7 +128,7 @@ export const ApproachSection = () => {
           width: "100%",
           display: "flex",
           flexDirection: { xs: "column", sm: "row" },
-          justifyContent: { xs: "center", sm: "center", md: "flex-start" },
+          justifyContent: "center",
           gap: 3,
           mb: 4,
         }}
