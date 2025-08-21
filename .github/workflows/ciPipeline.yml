@@ -22,10 +22,10 @@ jobs:
           node-version: 20
 
       - name: Install dependencies
-        run: npm ci
+        run: npm ci --force
 
       - name: Build Next.js
-        run: npm run build --force
+        run: npm run build 
 
       - name: Zip deployment package
         run: zip -r next-deploy.zip .next package.json package-lock.json public
