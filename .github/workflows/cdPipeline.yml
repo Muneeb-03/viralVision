@@ -33,7 +33,7 @@ jobs:
 
       - name: Ensure pm2 installed
         run: npm install -g pm2
-
+        
       - name: Restart application with pm2
         run: |
           pm2 delete next-app || true
