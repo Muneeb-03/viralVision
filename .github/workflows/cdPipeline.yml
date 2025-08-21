@@ -20,7 +20,7 @@ jobs:
         with:
           # workflow: ciPipeline.yml
           name: nextapp
-          path: .
+          path: ./
           run-id: ${{ github.event.workflow_run.id }}
           github-token: ${{ secrets.SECRET_TOKEN }}
 
