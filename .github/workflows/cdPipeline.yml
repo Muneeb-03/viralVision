@@ -5,6 +5,7 @@ on:
     workflows: ["Node.js CI"]
     types:
       - completed
+    branches: [main]
 
 jobs:
   deploy:
