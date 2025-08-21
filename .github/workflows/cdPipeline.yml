@@ -2,7 +2,7 @@ name: CD Pipeline
 
 on:
   workflow_run:
-    workflows: ["Node.js CI"]   
+    workflows: ["Node.js CI"]
     types:
       - completed
 
@@ -21,15 +21,11 @@ jobs:
           name: next-build
           path: .next/
 
-      - name: Set environment variables
-        run: |
-          echo "NODE_ENV=production" >> $GITHUB_ENV
-          echo "API_URL=https://api.example.com" >> $GITHUB_ENV
-
       - name: Install dependencies
-        run: npm ci
+        run: npm ci --omit=dev   # production dependencies only
 
       - name: Start application
         run: |
-          npm install -g pm2   # process manager
+          npm install -g pm2   # install PM2 globally
+          pm2 delete next-app || true   # remove old process if exists
           pm2 start npm --name "next-app" -- run start
