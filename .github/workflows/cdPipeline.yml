@@ -32,7 +32,7 @@ jobs:
         run: npm cache clean --force
 
       - name: Install dependencies
-        run: npm install --force 
+        run: npm install --legacy-peer-deps
 
       - name: Ensure pm2 installed
         run: npm install -g pm2
@@ -40,5 +40,5 @@ jobs:
       - name: Restart application with pm2
         run: |
           pm2 delete next-app || true
-          pm2 start npm --name "next-app" -- run start -- -H 0.0.0.0 -p 3000
+          pm2 start npm --name "next-app" -- run start -- -H 127.0.0.1 -p 3000
           pm2 save
