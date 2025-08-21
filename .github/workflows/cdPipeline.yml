@@ -22,8 +22,8 @@ jobs:
           # workflow: ciPipeline.yml
           name: nextapp
           # path: ./
-          # github-token: ${{ secrets.SECRET_TOKEN }}
-          # run-id: ${{ github.event.workflow_run.id }}
+          github-token: ${{ secrets.SECRET_TOKEN }}
+          run-id: ${{ github.event.workflow_run.id }}
 
       - name: Unzip artifact
         run: unzip deploy.zip -d .
