@@ -28,7 +28,6 @@ jobs:
       - name: Unzip artifact
         run: tar -xzf deploy.tar.gz -C .
 
-
       - name: Install dependencies
         run: npm ci --force  
 
