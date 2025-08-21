@@ -19,10 +19,10 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           # workflow: ciPipeline.yml
-          # name: nextapp
+          name: nextapp
           # path: ./
-          run-id: ${{ github.event.workflow_run.id }}
           github-token: ${{ secrets.SECRET_TOKEN }}
+          run-id: ${{ github.event.workflow_run.id }}
 
       - name: Unzip artifact
         run: unzip deploy.zip -d .
