@@ -12,17 +12,15 @@ jobs:
     runs-on: self-hosted  
     
     steps:
-      - name: Debugging
-        run: ls 
-
       - name: Download build artifact
         uses: actions/download-artifact@v4
         with:
           name: next-app
           path: ./artifact
-          github-token: ${{ secrets.PAT }}
-          run-id: ${{ github.event.workflow_run.id }}
-      
+
+      - name: Debug artifact
+        run: ls -R ./artifact
+        
       - name: Unzip artifact
         run: unzip deploy.zip -d .
 
