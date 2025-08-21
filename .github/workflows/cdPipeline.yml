@@ -26,7 +26,8 @@ jobs:
           run-id: ${{ github.event.workflow_run.id }}
 
       - name: Unzip artifact
-        run: unzip -o -d deploy.zip .
+        run: tar -xzf deploy.tar.gz -C .
+
 
       - name: Install dependencies
         run: npm ci --force  
