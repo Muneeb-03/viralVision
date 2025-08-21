@@ -20,6 +20,8 @@ jobs:
         with:
           name: next-app
           path: ./artifact
+          github-token: ${{ secrets.PAT }}
+          run-id: ${{ github.event.workflow_run.id }}
       
       - name: Unzip artifact
         run: unzip deploy.zip -d .
