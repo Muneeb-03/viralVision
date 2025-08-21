@@ -12,15 +12,16 @@ jobs:
     runs-on: self-hosted  
     
     steps:
-      - name: Download build artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: next-app
-          path: ./artifact
 
       - name: Debug artifact
         run: ls -R ./artifact
         
+      - name: Download build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: next-app
+
+          path: ./artifact
       - name: Unzip artifact
         run: unzip deploy.zip -d .
 
