@@ -25,7 +25,7 @@ jobs:
         run: npm ci
 
       - name: Build Next.js
-        run: npm run build
+        run: npm run build --force
 
       - name: Zip deployment package
         run: zip -r next-deploy.zip .next package.json package-lock.json public
