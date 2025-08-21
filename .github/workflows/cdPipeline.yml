@@ -13,15 +13,14 @@ jobs:
     
     steps:
 
-      - name: Debug artifact
-        run: ls -R ./artifact
-        
       - name: Download build artifact
         uses: actions/download-artifact@v4
         with:
+          workflow: ciPipeline.yml
           name: next-app
+          # path: ./
+          github_token: ${{ secrets.GITHUB_TOKEN }}
 
-          path: ./artifact
       - name: Unzip artifact
         run: unzip deploy.zip -d .
 
