@@ -12,14 +12,11 @@ jobs:
     runs-on: self-hosted  
     
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
       - name: Download build artifact
         uses: actions/download-artifact@v4
         with:
           name: next-app
-          path: .
+          path: ./next/next-deploy.zip
 
       - name: Unzip artifact
         run: unzip next-deploy.zip -d .
@@ -29,6 +26,6 @@ jobs:
 
       - name: Start application
         run: |
-          npm install -g pm2   # install PM2 globally
-          pm2 delete next-app || true   # remove old process if exists
+          npm install -g pm2   
+          pm2 delete next-app || true   
           pm2 start npm --name "next-app" -- run start
