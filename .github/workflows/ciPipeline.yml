@@ -28,10 +28,10 @@ jobs:
         run: npm run build 
 
       - name: Zip deployment package
-        run: zip -r next-deploy.zip .next package.json package-lock.json public
+        run: zip -r deploy.zip .next package.json package-lock.json public
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: next-app
-          path: next-deploy.zip
+          path: deploy.zip
