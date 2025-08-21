@@ -12,14 +12,15 @@ jobs:
     runs-on: self-hosted  
     
     steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
       - name: Download build artifact
         uses: actions/download-artifact@v4
         with:
           # workflow: ciPipeline.yml
           name: next-app
-          path: ./
-          github-token: ${{ secrets.PAT }}
-          run-id: ${{ github.event.workflow_run.id }}
+          path: .
 
       - name: Unzip artifact
         run: unzip deploy.zip -d .
