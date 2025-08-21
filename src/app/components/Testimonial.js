@@ -63,12 +63,12 @@ const testimonials = [
     author: "David Miller",
     image: ProfileOne,
   },
-  {
-    id:  10,
-    text: "The team truly understands how to capture the essence of our brand and translate it into captivating videos. I can't recommend them enough!",
-    author: "Muneeb",
-    image: ProfileOne,
-  },
+  // {
+  //   id:  10,
+  //   text: "The team truly understands how to capture the essence of our brand and translate it into captivating videos. I can't recommend them enough!",
+  //   author: "Muneeb",
+  //   image: ProfileOne,
+  // },
 ];
 
 const DotButton = styled(IconButton, {
