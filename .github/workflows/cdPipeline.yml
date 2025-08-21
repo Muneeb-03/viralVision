@@ -14,7 +14,7 @@ jobs:
     steps:
 
       - name: Download build artifact
-        uses: actions/download-artifact@v4
+        uses: dawidd6/action-download-artifact@v3
         with:
           workflow: ciPipeline.yml
           name: next-app
