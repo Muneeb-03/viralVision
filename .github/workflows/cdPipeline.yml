@@ -31,8 +31,11 @@ jobs:
       - name: Install dependencies
         run: npm ci --force  
 
-      - name: Start application
+      - name: Ensure pm2 installed
+        run: npm install -g pm2
+
+      - name: Restart application with pm2
         run: |
-          npm install -g pm2   
-          pm2 delete next-app || true   
-          pm2 start npm --name "next-app" -- run start
+          pm2 delete next-app || true
+          pm2 start npm --name "next-app" -- run start -- -H 0.0.0.0 -p 3000
+          pm2 save
